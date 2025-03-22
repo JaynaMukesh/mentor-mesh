@@ -1,12 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Icons } from './icons';
+import { Icons } from '../components/icons';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../constants/routes';
+// import { useNavigate } from 'react-router-dom';
 
-type Props = {
-  onConnect: () => void;
-};
+// const navigate = useNavigate();
 
-export const LandingPage: React.FC<Props> = ({ onConnect }) => {
+export const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center px-4 overflow-hidden">
       <div className="absolute inset-0">
@@ -91,14 +92,15 @@ export const LandingPage: React.FC<Props> = ({ onConnect }) => {
           transition={{ delay: 0.8 }}
         >
           <button
-            onClick={onConnect}
             className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-opacity-90 transition-all duration-200 flex items-center justify-center space-x-2 mx-auto"
           >
             <Icons.Wallet className="w-5 h-5" />
-            <span>Connect Wallet</span>
+            <Link to={ROUTES.onboarding}>Connect Wallet</Link>
           </button>
         </motion.div>
       </motion.div>
     </div>
   );
 };
+
+export default LandingPage;

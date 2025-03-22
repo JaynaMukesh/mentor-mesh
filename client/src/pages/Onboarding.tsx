@@ -1,5 +1,7 @@
 import React from 'react';
-import { Icons } from './icons';
+import { Icons } from '../components/icons';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../constants/routes';
 
 type Props = {
   onRoleSelect: (role: 'student' | 'mentor') => void;
@@ -11,8 +13,7 @@ export const Onboarding: React.FC<Props> = ({ onRoleSelect }) => {
       <div className="max-w-4xl w-full">
         <h1 className="text-4xl font-bold text-center text-gray-900 mb-8">Welcome to EduChain</h1>
         <div className="grid md:grid-cols-2 gap-8">
-          <button
-            onClick={() => onRoleSelect('student')}
+          <Link to={ROUTES.studentOnboarding}
             className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition duration-200"
           >
             <div className="flex flex-col items-center">
@@ -24,10 +25,9 @@ export const Onboarding: React.FC<Props> = ({ onRoleSelect }) => {
                 Find expert mentors and accelerate your learning journey
               </p>
             </div>
-          </button>
+          </Link>
 
-          <button
-            onClick={() => onRoleSelect('mentor')}
+          <Link to={ROUTES.mentorOnboarding}
             className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition duration-200"
           >
             <div className="flex flex-col items-center">
@@ -39,9 +39,11 @@ export const Onboarding: React.FC<Props> = ({ onRoleSelect }) => {
                 Share your expertise and help others grow
               </p>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
+
+export default Onboarding;

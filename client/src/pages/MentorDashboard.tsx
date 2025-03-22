@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Icons } from './icons';
+import { Icons } from '../components/icons';
 
 const mockMeetings = [
   {
@@ -69,3 +69,5 @@ export const MentorDashboard: React.FC = () => {
     </div>
   );
 };
+
+export default MentorDashboard;

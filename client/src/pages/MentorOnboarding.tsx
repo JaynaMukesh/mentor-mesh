@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Icons } from './icons';
+import { Icons } from '../components/icons';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../constants/routes';
+
 
 type Props = {
   onSubmit: (mentorData: {
@@ -13,6 +16,7 @@ type Props = {
 };
 
 export const MentorOnboarding: React.FC<Props> = ({ onSubmit }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     skills: [] as string[],
@@ -31,7 +35,7 @@ export const MentorOnboarding: React.FC<Props> = ({ onSubmit }) => {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Set Up Your Mentor Profile</h1>
-        
+
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -172,7 +176,7 @@ export const MentorOnboarding: React.FC<Props> = ({ onSubmit }) => {
           </div>
 
           <button
-            type="submit"
+            onClick={() => {navigate(ROUTES.mentorDashboard)}}
             className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-200"
           >
             Create Profile
@@ -182,3 +186,5 @@ export const MentorOnboarding: React.FC<Props> = ({ onSubmit }) => {
     </div>
   );
 };
+
+export default MentorOnboarding;

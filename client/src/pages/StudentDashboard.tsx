@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Icons } from './icons';
+import { Icons } from '../components/icons';
 
 const subjects = [
   { id: 'react', name: 'React', icon: Icons.Code2 },
@@ -127,3 +127,5 @@ export const StudentDashboard: React.FC = () => {
     </div>
   );
 };
+
+export default StudentDashboard;
