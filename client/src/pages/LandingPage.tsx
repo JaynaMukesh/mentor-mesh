@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Icons } from '../components/icons';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 // import { useNavigate } from 'react-router-dom';
 
 // const navigate = useNavigate();
@@ -91,12 +92,9 @@ export const LandingPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
         >
-          <button
-            className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-opacity-90 transition-all duration-200 flex items-center justify-center space-x-2 mx-auto"
-          >
-            <Icons.Wallet className="w-5 h-5" />
-            <Link to={ROUTES.onboarding}>Connect Wallet</Link>
-          </button>
+        <div className='flex justify-center'>
+            <ConnectButton />
+        </div>
         </motion.div>
       </motion.div>
     </div>
