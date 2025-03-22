@@ -1,29 +1,12 @@
-import {StrictMode} from 'react'
-import {createRoot} from 'react-dom/client'
-import './index.css'
-import {RouterProvider} from "react-router-dom";
-import {app_routes} from "./router.tsx";
-import '@rainbow-me/rainbowkit/styles.css';
-import {
-    RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import {WagmiProvider} from 'wagmi';
-import {
-    QueryClientProvider,
-    QueryClient,
-} from "@tanstack/react-query";
-import {eth_config} from "./config/ethconnector-config.ts";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './styles/index.css';
+import './styles/tailwind.css';
 
-const queryClient = new QueryClient();
-
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <WagmiProvider config={eth_config}>
-            <QueryClientProvider client={queryClient}>
-                <RainbowKitProvider>
-                    <RouterProvider router={app_routes}/>
-                </RainbowKitProvider>
-            </QueryClientProvider>
-        </WagmiProvider>
-    </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    hi
+    <App />
+  </React.StrictMode>
+);

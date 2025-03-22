@@ -1,54 +1,96 @@
-# React + TypeScript + Vite
+# mentor-match-vite/mentor-match-vite/README.md
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Mentor Match Vite
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Mentor Match is a web3 and AI-powered platform designed to connect students with mentors. This application leverages modern technologies to provide a seamless user experience and facilitate meaningful mentorship relationships.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- AI-driven skill matching to connect users with suitable mentors.
+- Wallet integration for web3 functionalities.
+- User-friendly interface with responsive design.
+- Session scheduling for mentorship meetings.
+- Comprehensive mentor profiles and lists.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technologies Used
+
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A superset of JavaScript that adds static types.
+- **Vite**: A fast build tool and development server.
+- **Tailwind CSS**: A utility-first CSS framework for styling.
+- **Web3.js**: A library to interact with the Ethereum blockchain.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+   ```
+   git clone <repository-url>
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd mentor-match-vite
+   ```
+
+3. Install the dependencies:
+
+   ```
+   npm install
+   ```
+
+   or
+
+   ```
+   yarn install
+   ```
+
+### Running the Application
+
+To start the development server, run:
+
+```
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+or
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+yarn dev
+```
+
+Open your browser and navigate to `http://localhost:3000` to view the application.
+
+### Building for Production
+
+To create a production build, run:
+
+```
+npm run build
+```
+
+or
+
+```
+yarn build
+```
+
+The built files will be available in the `dist` directory.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.

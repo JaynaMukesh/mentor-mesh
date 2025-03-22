@@ -1,0 +1,61 @@
+{
+  "contractName": "MentorMatch",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "mentorName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "mentorSkills",
+          "type": "string"
+        }
+      ],
+      "name": "addMentor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getMentors",
+      "outputs": [
+        {
+          "internalType": "tuple[]",
+          "name": "",
+          "type": "tuple[]",
+          "components": [
+            {
+              "internalType": "string",
+              "name": "mentorName",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "mentorSkills",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "mentorAddress",
+          "type": "address"
+        }
+      ],
+      "name": "removeMentor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}
