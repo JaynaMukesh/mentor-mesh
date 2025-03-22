@@ -1,0 +1,31 @@
+{
+  "name": "edu-mentor-platform",
+  "version": "1.0.0",
+  "description": "A decentralized platform for mentoring students in various subjects using Web3 and AI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js --network edu-chain-testnet",
+    "seed": "hardhat run scripts/seed.js --network edu-chain-testnet"
+  },
+  "keywords": [
+    "web3",
+    "blockchain",
+    "education",
+    "mentorship",
+    "AI"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "hardhat": "^2.0.0",
+    "ethers": "^5.0.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "chai": "^4.3.0",
+    "mocha": "^8.0.0"
+  }
+}
