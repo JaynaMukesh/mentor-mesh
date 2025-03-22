@@ -4,18 +4,9 @@ pragma solidity ^0.8.0;
 import "./interfaces/IMentorRegistry.sol";
 
 contract MentorRegistry is IMentorRegistry {
-    struct Mentor {
-        string name;
-        string[] skills;
-        uint256 pricePerSession;
-        string level;
-        bool isAvailable;
-        mapping(uint256 => string) timeSlots; // mapping of time slot index to time slot string
-        uint256 timeSlotCount;
-    }
-
     mapping(address => Mentor) public mentors;
     address[] public mentorAddresses;
+    address public owner;
 
     event MentorRegistered(address indexed mentorAddress, string name, string[] skills, uint256 pricePerSession, string level);
     event MentorUpdated(address indexed mentorAddress, string[] skills, uint256 pricePerSession, string level);
@@ -25,6 +16,10 @@ contract MentorRegistry is IMentorRegistry {
     modifier onlyMentor() {
         require(bytes(mentors[msg.sender].name).length > 0, "Not a registered mentor");
         _;
+    }
+
+    constructor() {
+        owner = msg.sender;
     }
 
     function registerMentor(string memory _name, string[] memory _skills, uint256 _pricePerSession, string memory _level) external {
@@ -66,11 +61,53 @@ contract MentorRegistry is IMentorRegistry {
         emit TimeSlotAdded(msg.sender, _timeSlot);
     }
 
-    function getMentor(address _mentorAddress) external view returns (Mentor memory) {
-        return mentors[_mentorAddress];
+    function getMentorDetails(address mentorAddress) public view returns (string memory name, string[] memory skills, uint256 pricePerSession, string memory level){
+        Mentor storage mentor = mentors[mentorAddress];
+        return (
+            mentor.name,
+            mentor.skills,
+            mentor.pricePerSession,
+            mentor.level
+        );
     }
 
-    function getAllMentors() external view returns (address[] memory) {
-        return mentorAddresses;
+    function getAllMentors() external view returns (MentorInfo[] memory) {
+        MentorInfo[] memory allMentors = new MentorInfo[](mentorAddresses.length);
+        for (uint256 i = 0; i < mentorAddresses.length; i++) {
+            Mentor storage mentor = mentors[mentorAddresses[i]];
+            allMentors[i] = MentorInfo({
+                name: mentor.name,
+                skills: mentor.skills,
+                pricePerSession: mentor.pricePerSession,
+                level: mentor.level,
+                isAvailable: mentor.isAvailable,
+                timeSlotCount: mentor.timeSlotCount
+            });
+        }
+        return allMentors;
+    }
+
+    function isMentor(address mentorAddress) public view returns(bool) {
+        return bytes(mentors[mentorAddress].name).length > 0;
+    }
+
+    function setMentorActiveStatus(address mentorAddress, bool status) external {
+        mentors[mentorAddress].isAvailable = status;
+    }
+
+    function updateMentorAvailability(bool _isAvailable) public {
+        require(msg.sender == owner, "Only owner can update availability for all mentors");
+        
+        for (uint256 i = 0; i < mentorAddresses.length; i++) {
+            if (mentorAddresses[i] == msg.sender) {
+                mentors[mentorAddresses[i]].isAvailable = _isAvailable;
+                emit MentorAvailabilityUpdated(msg.sender, _isAvailable);
+            }
+        }
+    }
+
+    function getMentorTimeSlot(address mentorAddress, uint256 slotIndex) external view returns (string memory) {
+        require(slotIndex < mentors[mentorAddress].timeSlotCount, "Time slot index out of bounds");
+        return mentors[mentorAddress].timeSlots[slotIndex];
     }
 }
