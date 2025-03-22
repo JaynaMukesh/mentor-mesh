@@ -28,6 +28,10 @@ contract StudentRegistry {
         emit StudentRegistered(msg.sender, _name, _subject);
     }
 
+    function isStudent(address studentAddress) public view returns (bool) {
+        return students[studentAddress].exists;
+    }
+
     function takeQuiz(uint8 _score) public {
         require(students[msg.sender].exists, "Student not registered");
         require(_score <= 5, "Score must be between 0 and 5");
