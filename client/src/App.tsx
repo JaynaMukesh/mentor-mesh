@@ -1,34 +1,57 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Layout from './components/common/Layout';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import MentorSearch from './pages/MentorSearch';
-import MentorDetail from './pages/MentorDetail';
-import Profile from './pages/Profile';
-import { AuthProvider } from './context/AuthContext';
-import { Web3Provider } from './context/Web3Context';
+import React, { useState } from 'react';
+import { LandingPage } from './components/LandingPage';
+import { ConnectWallet } from './components/ConnectWallet';
+import { Onboarding } from './components/Onboarding';
+import { StudentOnboarding } from './components/StudentOnboarding';
+import { MentorOnboarding } from './components/MentorOnboarding';
+import { StudentDashboard } from './components/StudentDashboard';
+import { MentorDashboard } from './components/MentorDashboard';
+import { User } from './types';
 
-const App: React.FC = () => {
+function App() {
+  const [isConnected, setIsConnected] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [currentStep, setCurrentStep] = useState<'landing' | 'connect' | 'role' | 'onboarding' | 'dashboard'>('landing');
+
+  const handleConnect = () => {
+    setIsConnected(true);
+    setCurrentStep('role');
+  };
+
+  const handleRoleSelect = (role: 'student' | 'mentor') => {
+    setUser({ id: '', address: '', name: '', role, meetings: [] });
+    setCurrentStep('onboarding');
+  };
+
+  const handleStudentOnboarding = (name: string, subject: string) => {
+    if (user) {
+      setUser({ ...user, name, subject });
+      setCurrentStep('dashboard');
+    }
+  };
+
+  const handleMentorOnboarding = (mentorData: any) => {
+    if (user) {
+      setUser({ ...user, ...mentorData });
+      setCurrentStep('dashboard');
+    }
+  };
+
   return (
-    <AuthProvider>
-      <Web3Provider>
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/mentor-search" element={<MentorSearch />} />
-              <Route path="/mentor/:id" element={<MentorDetail />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-          </Layout>
-        </Router>
-      </Web3Provider>
-    </AuthProvider>
+    <div className="min-h-screen bg-gray-50">
+      {currentStep === 'landing' && <LandingPage onConnect={() => setCurrentStep('connect')} />}
+      {currentStep === 'connect' && <ConnectWallet onConnect={handleConnect} />}
+      {currentStep === 'role' && <Onboarding onRoleSelect={handleRoleSelect} />}
+      {currentStep === 'onboarding' && user?.role === 'student' && (
+        <StudentOnboarding onSubmit={handleStudentOnboarding} />
+      )}
+      {currentStep === 'onboarding' && user?.role === 'mentor' && (
+        <MentorOnboarding onSubmit={handleMentorOnboarding} />
+      )}
+      {currentStep === 'dashboard' && user?.role === 'student' && <StudentDashboard />}
+      {currentStep === 'dashboard' && user?.role === 'mentor' && <MentorDashboard />}
+    </div>
   );
-};
+}
 
 export default App;
