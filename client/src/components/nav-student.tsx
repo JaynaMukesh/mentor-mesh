@@ -15,6 +15,7 @@ const NavStudent = () => {
                             </div>
                             <div className="hidden sm:block sm:ml-6">
                                 <div className="flex space-x-4">
+                                    <Link to={ROUTES.studentDashboard} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                                     <Link to={ROUTES.mentorsSuggestions} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Personalized Mentors</Link>
                                 </div>
                             </div>
