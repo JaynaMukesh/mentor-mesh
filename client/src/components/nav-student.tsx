@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+import logo from "../assets/Logomark.svg";
+import { ROUTES } from "../constants/routes";
+
 const NavStudent = () => {
     return (
         <div>
@@ -6,12 +10,12 @@ const NavStudent = () => {
                     <div className="relative flex items-center justify-between h-16">
                         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex-shrink-0 flex items-center">
+                                <img src={logo} alt="logo" className="w-10 h-10" />
                                 <h1 className="text-white text-2xl font-bold">MentorMesh</h1>
                             </div>
                             <div className="hidden sm:block sm:ml-6">
                                 <div className="flex space-x-4">
-                                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Meetings</a>
+                                    <Link to={ROUTES.mentorsSuggestions} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Personalized Mentors</Link>
                                 </div>
                             </div>
                         </div>
