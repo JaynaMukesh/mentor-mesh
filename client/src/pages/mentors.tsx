@@ -14,9 +14,9 @@ const Mentors = () => {
     const isMounted = useRef(false)
     const [mentors, setMentors] = useState<IMentor[]>([])
     const navigate = useNavigate();
-
+    
     useEffect(() => {
-        if (!isMounted.current) {
+        if(!isMounted.current){
             isMounted.current = true;
             readContract(eth_config, {
                 abi: mentorRegistryABI,
@@ -32,7 +32,7 @@ const Mentors = () => {
             })
         }
     }, []);
-
+    
     return (
         <div>
             <NavStudent />

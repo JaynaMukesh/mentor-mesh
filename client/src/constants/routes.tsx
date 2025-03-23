@@ -11,6 +11,7 @@ export const ROUTES = {
     },
     quiz: loginRouteBase + "/quiz",
     mentorsSuggestions: loginRouteBase + "/personalized-mentors",
+    mentor: loginRouteBase + "/mentor",
 }
 
 export const API_ROUTES = "http://localhost:5000/test"

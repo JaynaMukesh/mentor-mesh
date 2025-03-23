@@ -9,6 +9,7 @@ import StudentOnboarding from "../pages/StudentOnboarding.tsx";
 import StudentDashboard from "../pages/StudentDashboard.tsx";
 import QuizComp from "../pages/quiz.tsx";
 import Mentors from "../pages/mentors.tsx";
+import MentorPreview from "../pages/mentor-preview.tsx";
 
 export const Router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ export const Router = createBrowserRouter([
             {
                 path: ROUTES.mentorsSuggestions,
                 element: <Mentors />
+            },
+            {
+                path: `${ROUTES.mentor}/:token`,
+                element: <MentorPreview />
             }
         ]
     }
