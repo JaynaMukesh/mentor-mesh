@@ -14,4 +14,4 @@ export const ROUTES = {
     mentor: loginRouteBase + "/mentor",
 }
 
-export const API_ROUTES = "http://localhost:5000/test"
+export const API_ROUTES = "https://alan.webxspark.com/hackverse-25/test"

@@ -99,7 +99,7 @@ export const LandingPage: React.FC = () => {
                                 animate={{opacity: 1, y: 0}}
                                 transition={{delay: 0.2}}
                             >
-                                Welcome to EduChain
+                                Welcome to MentorMesh
                             </motion.h1>
                             <motion.p
                                 className="text-xl text-white/80"
