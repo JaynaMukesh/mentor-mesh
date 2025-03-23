@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 interface IMentorRegistry {
     // Create a new struct without mappings for external returns
     struct MentorInfo {
+        address mentorAddress;  // Add this line
         string name;
         string[] skills;
         uint256 pricePerSession;

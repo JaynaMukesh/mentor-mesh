@@ -74,8 +74,10 @@ contract MentorRegistry is IMentorRegistry {
     function getAllMentors() external view returns (MentorInfo[] memory) {
         MentorInfo[] memory allMentors = new MentorInfo[](mentorAddresses.length);
         for (uint256 i = 0; i < mentorAddresses.length; i++) {
-            Mentor storage mentor = mentors[mentorAddresses[i]];
+            address mentorAddress = mentorAddresses[i];
+            Mentor storage mentor = mentors[mentorAddress];
             allMentors[i] = MentorInfo({
+                mentorAddress: mentorAddress,  // Add this line
                 name: mentor.name,
                 skills: mentor.skills,
                 pricePerSession: mentor.pricePerSession,

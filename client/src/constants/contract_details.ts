@@ -1,4 +1,4 @@
-const mentorRegistryAddress = "0x099C16080Def8A57a828d405E1baef49cffbc4Dd";
+const mentorRegistryAddress = "0x59929fFF3468918F89DB200bcd974316B1D8e592";
 const mentorRegistryABI = [
     {
         "anonymous": false,
@@ -179,11 +179,6 @@ const mentorRegistryABI = [
         "type": "function"
     },
     {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
         "inputs": [
             {
                 "internalType": "string[]",
@@ -221,10 +216,20 @@ const mentorRegistryABI = [
     },
     {
         "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
         "name": "getAllMentors",
         "outputs": [
             {
                 "components": [
+                    {
+                        "internalType": "address",
+                        "name": "mentorAddress",
+                        "type": "address"
+                    },
                     {
                         "internalType": "string",
                         "name": "name",
@@ -414,13 +419,8 @@ const mentorRegistryABI = [
     }
 ];
 
-const studentRegistryAddress = "0xD82995b9B4353599b9C92E582Ce2044351de79D7";
+const studentRegistryAddress = "0x5B946Bc86c7c0a7DEFEC001DA40cA01E8d668cf2";
 const studentRegistryABI = [
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
     {
         "anonymous": false,
         "inputs": [
@@ -483,6 +483,65 @@ const studentRegistryABI = [
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_subject",
+                "type": "string"
+            }
+        ],
+        "name": "registerStudent",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "studentAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_subject",
+                "type": "string"
+            }
+        ],
+        "name": "registerStudentOnBehalf",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint8",
+                "name": "_score",
+                "type": "uint8"
+            }
+        ],
+        "name": "takeQuiz",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
     },
     {
         "inputs": [
@@ -572,47 +631,6 @@ const studentRegistryABI = [
     {
         "inputs": [
             {
-                "internalType": "string",
-                "name": "_name",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_subject",
-                "type": "string"
-            }
-        ],
-        "name": "registerStudent",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "studentAddress",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "_name",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_subject",
-                "type": "string"
-            }
-        ],
-        "name": "registerStudentOnBehalf",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
                 "internalType": "address",
                 "name": "",
                 "type": "address"
@@ -648,40 +666,11 @@ const studentRegistryABI = [
         ],
         "stateMutability": "view",
         "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint8",
-                "name": "_score",
-                "type": "uint8"
-            }
-        ],
-        "name": "takeQuiz",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
     }
 ];
 
-const sessionBookingAddress = "0xf8ac026B42739fb210449676382708a4b98C942c";
+const sessionBookingAddress = "0xB1234bf4806016C55682fF7e2B93cF371B1ca6d5";
 const sessionBookingABI = [
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_mentorRegistry",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "_studentRegistry",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
     {
         "anonymous": false,
         "inputs": [
@@ -762,6 +751,22 @@ const sessionBookingABI = [
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_mentorRegistry",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_studentRegistry",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
     },
     {
         "inputs": [
@@ -1057,7 +1062,7 @@ const sessionBookingABI = [
     }
 ];
 
-const eduPlatformAddress = "0xAc9425CaA060Bf1e8f301128b0d15e994f536938";
+const eduPlatformAddress = "0xBaF8d3c88d0B4D456b2c098Ef83a40E00Fbefb3C";
 const eduPlatformABI = [
     {
         "anonymous": false,
