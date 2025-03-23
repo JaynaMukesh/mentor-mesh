@@ -2,28 +2,59 @@ import React, { useState } from 'react';
 import { Icons } from '../components/icons';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
+import {writeContract, waitForTransactionReceipt} from "@wagmi/core"
+// import {useAccount} from "wagmi";
+import {Loader} from "lucide-react";
+import {eth_config} from "../config/ethconfig.ts";
+import {eduPlatformABI, eduPlatformAddress} from "../constants/contract_details.ts";
+import {SUBJECTS} from "../constants/subjects.ts";
 
 const subjects = [
-  { id: 'react', name: 'React', icon: Icons.Code2 },
-  { id: 'php', name: 'PHP', icon: Icons.FileCode2 },
-  { id: 'dsa', name: 'DSA', icon: Icons.Binary },
-  { id: 'python', name: 'Python', icon: Icons.Database },
-  { id: 'ai', name: 'AI/ML', icon: Icons.BrainCircuit },
+  { id: 'React', name: 'React', icon: Icons.Code2 },
+  { id: 'PHP', name: 'PHP', icon: Icons.FileCode2 },
+  { id: 'DSA', name: 'DSA', icon: Icons.Binary },
+  { id: 'Python', name: 'Python', icon: Icons.Database },
+  { id: 'AI/ML', name: 'AI/ML', icon: Icons.BrainCircuit },
 ] as const;
 
-type Props = {
-  onSubmit: (name: string, subject: string) => void;
-};
-
-export const StudentOnboarding: React.FC<Props> = ({ onSubmit }) => {
+export const StudentOnboarding: React.FC = () => {
   const [name, setName] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const navigate = useNavigate();
-
+  // const {address} = useAccount();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name && selectedSubject) {
-      onSubmit(name, selectedSubject);
+      setLoading(true);
+      writeContract(eth_config, {
+        abi: eduPlatformABI,
+        address: eduPlatformAddress,
+        functionName: 'registerStudent',
+        args: [
+            name,
+            selectedSubject,
+        ]
+      }).then(r => {
+        waitForTransactionReceipt(eth_config, {
+          hash: r
+        }).then(res => {
+          console.log(res);
+          const subjectIndex = SUBJECTS.indexOf(selectedSubject);
+          navigate(`${ROUTES.quiz}/${subjectIndex}`);
+        }).catch(err => {
+            console.log(err);
+            alert(err.message || "Something went wrong");
+        }).finally(() => {
+            setLoading(false);
+        })
+      }).catch(err => {
+        alert(err.message || "Something went wrong");
+        console.log(err);
+        setLoading(false);
+      })
+    } else {
+        alert('Please fill in all fields');
     }
   };
 
@@ -74,12 +105,11 @@ export const StudentOnboarding: React.FC<Props> = ({ onSubmit }) => {
           </div>
 
           <button
-          onClick={() => {navigate(ROUTES.studentDashboard)}}
             type="submit"
-            disabled={!name || !selectedSubject}
-            className="mt-8 w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={!name || !selectedSubject || loading}
+            className="flex items-center justify-center mt-8 w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Continue to Assessment
+            {loading && <Loader className={'size-4 mr-2 animate-spin'} />} Continue to Assessment
           </button>
         </form>
       </div>

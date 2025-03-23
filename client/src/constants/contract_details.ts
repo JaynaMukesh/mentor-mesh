@@ -414,8 +414,13 @@ const mentorRegistryABI = [
     }
 ];
 
-const studentRegistryAddress = "0xB0C31A5809810B407902D52077f04C4a012b3200";
+const studentRegistryAddress = "0xD82995b9B4353599b9C92E582Ce2044351de79D7";
 const studentRegistryABI = [
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
     {
         "anonymous": false,
         "inputs": [
@@ -469,17 +474,12 @@ const studentRegistryABI = [
     {
         "inputs": [
             {
-                "internalType": "string",
-                "name": "_name",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_subject",
-                "type": "string"
+                "internalType": "address",
+                "name": "platformAddress",
+                "type": "address"
             }
         ],
-        "name": "registerStudent",
+        "name": "authorizePlatform",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -487,14 +487,20 @@ const studentRegistryABI = [
     {
         "inputs": [
             {
-                "internalType": "uint8",
-                "name": "_score",
-                "type": "uint8"
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             }
         ],
-        "name": "takeQuiz",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "authorizedPlatforms",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -551,6 +557,60 @@ const studentRegistryABI = [
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_subject",
+                "type": "string"
+            }
+        ],
+        "name": "registerStudent",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "studentAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_subject",
+                "type": "string"
+            }
+        ],
+        "name": "registerStudentOnBehalf",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -588,11 +648,40 @@ const studentRegistryABI = [
         ],
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint8",
+                "name": "_score",
+                "type": "uint8"
+            }
+        ],
+        "name": "takeQuiz",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     }
 ];
 
-const sessionBookingAddress = "0xB5a1C9E5a9f711D70A4d1e3cc5310dC22130cAF2";
+const sessionBookingAddress = "0xf8ac026B42739fb210449676382708a4b98C942c";
 const sessionBookingABI = [
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_mentorRegistry",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_studentRegistry",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
     {
         "anonymous": false,
         "inputs": [
@@ -678,17 +767,85 @@ const sessionBookingABI = [
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_mentorRegistry",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "_studentRegistry",
+                "name": "mentor",
                 "type": "address"
             }
         ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
+        "name": "getMentorSessionCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "mentor",
+                "type": "address"
+            }
+        ],
+        "name": "getMentorSessionIds",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "mentor",
+                "type": "address"
+            }
+        ],
+        "name": "getMentorSessions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "mentor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "student",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "price",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isBooked",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct SessionBooking.Session[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
@@ -731,6 +888,90 @@ const sessionBookingABI = [
                 "internalType": "struct SessionBooking.Session",
                 "name": "",
                 "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "student",
+                "type": "address"
+            }
+        ],
+        "name": "getStudentSessionCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "student",
+                "type": "address"
+            }
+        ],
+        "name": "getStudentSessionIds",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "student",
+                "type": "address"
+            }
+        ],
+        "name": "getStudentSessions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "mentor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "student",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "price",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isBooked",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct SessionBooking.Session[]",
+                "name": "",
+                "type": "tuple[]"
             }
         ],
         "stateMutability": "view",
@@ -816,7 +1057,7 @@ const sessionBookingABI = [
     }
 ];
 
-const eduPlatformAddress = "0x8197658A39E672C3624802578dc6434B7C47da24";
+const eduPlatformAddress = "0xAc9425CaA060Bf1e8f301128b0d15e994f536938";
 const eduPlatformABI = [
     {
         "anonymous": false,

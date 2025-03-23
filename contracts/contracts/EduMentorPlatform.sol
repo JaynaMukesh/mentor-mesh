@@ -19,10 +19,14 @@ contract EduMentorPlatform {
         mentorRegistry = MentorRegistry(_mentorRegistry);
         studentRegistry = StudentRegistry(_studentRegistry);
         sessionBooking = SessionBooking(_sessionBooking);
+        
+        // Authorize this platform with the StudentRegistry
+        try studentRegistry.authorizePlatform(address(this)) {} catch {}
     }
 
     function registerStudent(string memory name, string memory subject) public {
-        studentRegistry.registerStudent(name, subject);
+        // Call the new function that takes the student's address
+        studentRegistry.registerStudentOnBehalf(msg.sender, name, subject);
         emit StudentRegistered(msg.sender, name, subject);
     }
 

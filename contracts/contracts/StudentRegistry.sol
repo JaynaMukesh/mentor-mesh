@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract StudentRegistry {
@@ -13,6 +14,38 @@ contract StudentRegistry {
 
     event StudentRegistered(address indexed studentAddress, string name, string subject);
     event QuizTaken(address indexed studentAddress, uint8 score, uint8 level);
+
+    address public owner;
+    
+    constructor() {
+        owner = msg.sender;
+    }
+    
+    modifier onlyOwnerOrPlatform() {
+        require(msg.sender == owner || authorizedPlatforms[msg.sender], "Not authorized");
+        _;
+    }
+    
+    mapping(address => bool) public authorizedPlatforms;
+    
+    function authorizePlatform(address platformAddress) external {
+        require(msg.sender == owner, "Only owner can authorize platforms");
+        authorizedPlatforms[platformAddress] = true;
+    }
+    
+    function registerStudentOnBehalf(address studentAddress, string memory _name, string memory _subject) public onlyOwnerOrPlatform {
+        require(!students[studentAddress].exists, "Student already registered");
+        
+        students[studentAddress] = Student({
+            name: _name,
+            subject: _subject,
+            quizScore: 0,
+            level: 0,
+            exists: true
+        });
+
+        emit StudentRegistered(studentAddress, _name, _subject);
+    }
 
     function registerStudent(string memory _name, string memory _subject) public {
         require(!students[msg.sender].exists, "Student already registered");

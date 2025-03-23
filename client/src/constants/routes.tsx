@@ -1,8 +1,16 @@
+const loginRouteBase = "/app";
 export const ROUTES = {
     landing: "/",
-    mentorDashboard: "/mentor-dashboard",
-    mentorOnboarding: "/mentor-onboarding",
-    onboarding: "/onboarding",
-    studentDashboard: "/student-dashboard",
-    studentOnboarding: "/student-onboarding",
+    mentorDashboard: loginRouteBase + "/mentor-dashboard",
+    mentorOnboarding: loginRouteBase + "/mentor-onboarding",
+    onboarding: loginRouteBase + "/onboarding",
+    studentDashboard: loginRouteBase + "/student-dashboard",
+    studentOnboarding: loginRouteBase + "/student-onboarding",
+    loginRoutes: {
+        _base: loginRouteBase,
+    },
+    quiz: loginRouteBase + "/quiz",
+    mentorsSuggestions: loginRouteBase + "/personalized-mentors",
 }
+
+export const API_ROUTES = "http://localhost:5000/test"

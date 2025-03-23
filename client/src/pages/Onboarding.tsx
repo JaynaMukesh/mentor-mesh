@@ -3,11 +3,7 @@ import { Icons } from '../components/icons';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
 
-type Props = {
-  onRoleSelect: (role: 'student' | 'mentor') => void;
-};
-
-export const Onboarding: React.FC<Props> = ({ onRoleSelect }) => {
+export const Onboarding: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-4xl w-full">
